@@ -4,6 +4,8 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+namespace BuildToHeaven.Cards
+{
 public class BlockQueue : MonoBehaviour
 {
     //front is 0, back is blocks.length
@@ -12,10 +14,9 @@ public class BlockQueue : MonoBehaviour
     public Block uBlock;
     private void Start()
     {
-        //StartCoroutine(StartBlockPlacement());
         AddToFront(uBlock);
     }
-
+/*
     IEnumerator StartBlockPlacement()
     {
         while(blocks.Count > 0)
@@ -24,7 +25,7 @@ public class BlockQueue : MonoBehaviour
             yield return new WaitForSeconds(5);
         }
     }
-
+*/
     public void PlaceNext()
     {
         Instantiate(blocks[0], new Vector3(0, 5, 0), Quaternion.identity);
@@ -35,4 +36,5 @@ public class BlockQueue : MonoBehaviour
     {
         blocks.Insert(0, block);
     }
+}
 }

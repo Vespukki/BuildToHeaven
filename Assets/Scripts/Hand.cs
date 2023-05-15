@@ -1,10 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BuildToHeaven.Cards;
 
-public class Hand : MonoBehaviour
+namespace BuildToHeaven.Cards
 {
-    public List<Card> cards;
+    public class Hand : MonoBehaviour
+    {
+        public Canvas canvas;
+        public List<CardObject> cards;
 
+        private void Awake()
+        {
+            foreach(var card in transform.GetComponentsInChildren<CardObject>())
+            {
+                cards.Add(card);
+            }
+        }
 
+      
+    }
 }
