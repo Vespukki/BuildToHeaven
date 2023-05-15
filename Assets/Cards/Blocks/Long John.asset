@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf1419507e07dc145898354e792ca6e9, type: 3}
   m_Name: Long John
   m_EditorClassIdentifier: 
-  _effect: {fileID: 0}
-  _cardName: 
+  _effects: 0000000000000000
+  _cardName: Long John
+  _previewSprite: {fileID: 1699512754, guid: e6446f525bcf9f744be381cb956ca246, type: 3}

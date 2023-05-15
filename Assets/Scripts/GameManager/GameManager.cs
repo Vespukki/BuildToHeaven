@@ -23,6 +23,12 @@ namespace BuildToHeaven.GameManagement
             ChangeState(new PlayingState(this));
         }
 
+        protected override void Update()
+        {
+            base.Update();
+
+            Debug.Log(currentState.GetType());
+        }
 
         public void Draw()
         {

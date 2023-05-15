@@ -9,8 +9,8 @@ namespace BuildToHeaven.GameManagement
     public class ResolvingState : GameState
     {
         Card cardPlayed;
-        CardEffect effect = null;
-        bool effectResult = false;
+        bool cardResolved = false;
+
 
         public ResolvingState(GameManager _sm, Card card) : base(_sm)
         {
@@ -21,35 +21,39 @@ namespace BuildToHeaven.GameManagement
         {
             base.Enter();
 
-            CardEffect.OnEffectResolved += OnEffectResolve;
+            Card.OnCardResolved += OnCardResolved;
         }
 
         public override void Exit()
         {
             base.Exit();
 
-            CardEffect.OnEffectResolved -= OnEffectResolve;
+            Card.OnCardResolved -= OnCardResolved;
         }
 
         protected override async void Cycle()
         {
             base.Cycle();
-            await WaitForEffectResolution();
-
-            Debug.Log("effect resolved: " + effectResult.ToString());
-
+            await WaitForCardResolution();
             manager.ChangeState(new PlayingState(manager));
         }
 
-        private void OnEffectResolve(bool result, CardEffect effect)
+        private void OnCardResolved(Card card)
         {
-            effectResult = result;
-            this.effect = effect;
+            Debug.Log( "attempted resolved");
+            if (card == cardPlayed)
+            {
+                cardResolved = true;
+            }
+            else
+            {
+                Debug.LogError("Card resolved was not card played");
+            }
         }
 
-        private async Task WaitForEffectResolution()
+        private async Task WaitForCardResolution()
         {
-            while(effect == null)
+            while(!cardResolved)
             {
                 await Task.Yield();
             }

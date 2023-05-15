@@ -407,7 +407,7 @@ PrefabInstance:
     - target: {fileID: 4423816376358522440, guid: d14ea13084631004aa18ecd691a7e211, type: 3}
       propertyPath: card
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
     - target: {fileID: 4423816376358522440, guid: d14ea13084631004aa18ecd691a7e211, type: 3}
       propertyPath: text
       value: 
@@ -918,16 +918,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cards:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  - {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
 --- !u!1 &1376684132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,7 +1167,7 @@ PrefabInstance:
     - target: {fileID: 4423816376358522440, guid: d14ea13084631004aa18ecd691a7e211, type: 3}
       propertyPath: card
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
     - target: {fileID: 4423816376358522440, guid: d14ea13084631004aa18ecd691a7e211, type: 3}
       propertyPath: text
       value: 

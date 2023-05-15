@@ -6,7 +6,7 @@ using UnityEngine;
 namespace BuildToHeaven.Cards
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Block : CardEffect
+    public class Block : MonoBehaviour
     {
         Rigidbody2D body;
         
@@ -16,17 +16,11 @@ namespace BuildToHeaven.Cards
             body = GetComponent<Rigidbody2D>();
         }
 
-        private async void Start()
-        {
-            await Task.Delay(250);
-            InvokeOnEffectResolve(true, this);
-        }
-
-        public override void Activate(Vector2 position)
+        /*public override void Activate(Vector2 position)
         {
             base.Activate(position);
 
             Instantiate(gameObject, position, Quaternion.identity);
-        }
+        }*/
     }
 }
