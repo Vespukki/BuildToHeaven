@@ -18,21 +18,42 @@ namespace BuildToHeaven.Cards
             OnEffectResolved?.Invoke(result, effect);
         }
 
-        public virtual async Task Activate(Vector2 position)
-        {
-        }
+        public abstract Task Activate(Vector2 position, Card card);
     }
 
     public class Draw : CardEffect
     {
         public override Effect effect => Effect.Draw;
 
-        public override async Task Activate(Vector2 position)
+        public override async Task Activate(Vector2 position, Card card)
         {
-            await base.Activate(position);
-
             GameManager.instance.Draw();
+            await Task.Delay(150);
             InvokeOnEffectResolve(true, this);
+        }
+    }
+
+    public class Place : CardEffect
+    {
+        public override Effect effect => Effect.Place;
+
+        public override async Task Activate(Vector2 position, Card card)
+        {
+            Block block = MonoBehaviour.Instantiate(card.Block.gameObject, position, Quaternion.identity).GetComponent<Block>();
+
+            GameManager.instance.placedBlocks.Add(block);
+
+            await WaitForBlockResolution(block);
+
+            InvokeOnEffectResolve(true, this);
+        }
+
+        public async Task WaitForBlockResolution(Block block)
+        {
+            while (block.resolved == BlockResolution.resolving)
+            {
+                await Task.Yield();
+            }
         }
     }
 

@@ -49,7 +49,7 @@ namespace BuildToHeaven.GameManagement
         private void CardPlayed(Card card)
         {
             cardPlayed = card;
-            manager.Draw();
+            //manager.Draw();
         }
     }
 }

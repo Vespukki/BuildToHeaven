@@ -11,7 +11,22 @@ namespace BuildToHeaven.GameManagement
         public Hand hand;
         public Deck deck;
 
+        public CameraController cam;
+
         [SerializeField] CardObject cardObject;
+
+        public List<Block> placedBlocks = new();
+        public GameObject platform;
+
+        private void OnEnable()
+        {
+            Block.OnFailedResolution += OnFailedResolution;
+        }
+        private void OnDisable()
+        {
+            Block.OnFailedResolution -= OnFailedResolution;
+        }
+
 
         private void Awake()
         {
@@ -28,6 +43,11 @@ namespace BuildToHeaven.GameManagement
             base.Update();
 
             Debug.Log(currentState.GetType());
+        }
+
+        void OnFailedResolution(Block block)
+        {
+            Debug.Log("THE GAME ENDED ITS OVER YOU LOST GO HOME");
         }
 
         public void Draw()

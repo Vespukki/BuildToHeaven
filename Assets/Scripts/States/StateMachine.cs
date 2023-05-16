@@ -6,12 +6,14 @@ namespace BuildToHeaven.States
 {
     public class StateMachine : MonoBehaviour
     {
-        protected State currentState;
-        protected State previousState;
+        public State currentState;
+        public State previousState;
 
         public void ChangeState(State newState)
         {
+
             currentState?.Exit();
+            previousState = currentState;
             currentState = newState;
             newState?.Enter();
         }

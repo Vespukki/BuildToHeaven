@@ -28,12 +28,15 @@ namespace BuildToHeaven.Cards
         [SerializeField] Sprite _previewSprite;
         public Sprite PreviewSprite => _previewSprite;
 
+        [SerializeField] Block _block;
+        public Block Block => _block;
+
 
         Dictionary<Effect, Type> effectsToTypes = new();
 
         private void OnEnable()
         {
-            Debug.Log(this.name + " initialized");
+            //Debug.Log(this.name + " initialized");
             var abilityTypes = Assembly.GetAssembly(typeof(CardEffect)).GetTypes().Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(CardEffect)));
 
 
@@ -62,7 +65,7 @@ namespace BuildToHeaven.Cards
         {
             foreach(var effect in effects)
             {
-                await GetCardEffect(effect)?.Activate(position);
+                await GetCardEffect(effect)?.Activate(position, this);
             }
 
             while(OnCardResolved == null)
@@ -75,7 +78,7 @@ namespace BuildToHeaven.Cards
 
     public enum Effect
     {
-        Draw
+        Draw, Place
     }
 
 

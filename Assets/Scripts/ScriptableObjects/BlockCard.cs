@@ -14,7 +14,6 @@ namespace BuildToHeaven
         {
             base.Use(position);
 
-            Instantiate(HeldBlock, position, Quaternion.identity);
         }
     }
 }
