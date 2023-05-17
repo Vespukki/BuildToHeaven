@@ -35,7 +35,16 @@ namespace BuildToHeaven.GameManagement
         {
             base.Cycle();
             await WaitForCardResolution();
+            //await WaitForBlocksToSettle();
             manager.ChangeState(new PlayingState(manager));
+        }
+
+        private async Task WaitForBlocksToSettle()
+        {
+            while(manager.placedBlocks.TrueForAll(block => block.resolved != BlockResolution.success))
+            {
+                await Task.Yield();
+            }
         }
 
         private void OnCardResolved(Card card)

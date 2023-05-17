@@ -41,7 +41,7 @@ namespace BuildToHeaven.Cards
         {
             Block block = MonoBehaviour.Instantiate(card.Block.gameObject, position, Quaternion.identity).GetComponent<Block>();
 
-            GameManager.instance.placedBlocks.Add(block);
+            GameManager.instance.AddBlock(block);
 
             await WaitForBlockResolution(block);
 

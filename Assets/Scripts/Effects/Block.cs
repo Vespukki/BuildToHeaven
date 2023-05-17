@@ -12,16 +12,32 @@ namespace BuildToHeaven.Cards
 
         public BlockResolution resolved {get{ return CheckResolved(); } }
 
-        Rigidbody2D body;
+        [HideInInspector] public Rigidbody2D body;
 
         private void Awake()
         {
             body = GetComponent<Rigidbody2D>();
         }
 
+        private void Update()
+        {
+         /*   if(body.IsAwake() && transform.position.y > GameManager.instance.LossHeight)
+            {
+                if (CheckResolved() == BlockResolution.failure)
+                {
+                    OnFailedResolution?.Invoke(this);
+                }
+            }*/
+        }
+
+        public void InvokeFailure()
+        {
+            OnFailedResolution?.Invoke(this);
+        }
+
         BlockResolution CheckResolved()
         {
-            if(transform.position.y < GameManager.instance.cam.currentHeight - 12)
+            if(transform.position.y < GameManager.instance.LossHeight)
             {
                 OnFailedResolution?.Invoke(this);
                 return BlockResolution.failure;

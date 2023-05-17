@@ -19,7 +19,7 @@ namespace BuildToHeaven.Cards
         public delegate void CardDelegate(Card card);
         public static event CardDelegate OnCardUsed;
 
-        HorizontalLayoutGroup group;
+        VerticalLayoutGroup group;
 
         Vector2 dragOffset;
 
@@ -45,10 +45,10 @@ namespace BuildToHeaven.Cards
 
         public void DragStartHandler(BaseEventData data)
         {
-            group = GetComponentInParent<HorizontalLayoutGroup>();
+            group = GetComponentInParent<VerticalLayoutGroup>();
 
             PointerEventData pointerData = (PointerEventData)data;
-
+             
             dragOffset = pointerData.position - (Vector2)transform.position;
 
             transform.SetParent(canvas.transform);

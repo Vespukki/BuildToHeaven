@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using BuildToHeaven.Cards;
 using BuildToHeaven.States;
+using System.Linq;
+using System;
+
 namespace BuildToHeaven.GameManagement
 {
     public class GameManager : StateMachine
@@ -17,6 +20,11 @@ namespace BuildToHeaven.GameManagement
 
         public List<Block> placedBlocks = new();
         public GameObject platform;
+
+        public LoseBar LoseBar;
+
+        public float lossOffset;
+        public float LossHeight { get { return cam.currentHeight + lossOffset; } }
 
         private void OnEnable()
         {
@@ -41,13 +49,23 @@ namespace BuildToHeaven.GameManagement
         protected override void Update()
         {
             base.Update();
-
             Debug.Log(currentState.GetType());
+
+            if (LoseBar.transform.position.y != LossHeight)
+            {
+                LoseBar.transform.position = new(platform.transform.position.x, LossHeight, 0);
+            }
         }
 
         void OnFailedResolution(Block block)
         {
             Debug.Log("THE GAME ENDED ITS OVER YOU LOST GO HOME");
+            Time.timeScale = 0;
+        }
+
+        public void AddBlock(Block block)
+        {
+            placedBlocks.Add(block);
         }
 
         public void Draw()
