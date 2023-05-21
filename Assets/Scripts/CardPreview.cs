@@ -6,8 +6,11 @@ using UnityEngine.InputSystem;
 
 namespace BuildToHeaven.Cards
 {
+    [RequireComponent(typeof(SpriteRenderer))]
     public class CardPreview : MonoBehaviour
     {
+        [HideInInspector] public SpriteRenderer spriter;
+
         private static CardPreview _instance;
 
         public static CardPreview Instance
@@ -23,6 +26,7 @@ namespace BuildToHeaven.Cards
                 Destroy(gameObject);
             }
             _instance = this;
+            spriter = GetComponent<SpriteRenderer>();
         }
 
         private void Update()
@@ -30,5 +34,7 @@ namespace BuildToHeaven.Cards
             Vector3 location = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             transform.position = new Vector3(location.x, location.y, 0);
         }
+
+        
     }
 }

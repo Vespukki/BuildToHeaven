@@ -21,9 +21,10 @@ namespace BuildToHeaven.GameManagement
         public List<Block> placedBlocks = new();
         public GameObject platform;
 
-        public LoseBar LoseBar;
-
+        public LoseBar loseBar;
+        public Transform placementBar;
         public float lossOffset;
+
         public float LossHeight { get { return cam.currentHeight + lossOffset; } }
 
         private void OnEnable()
@@ -51,10 +52,26 @@ namespace BuildToHeaven.GameManagement
             base.Update();
             Debug.Log(currentState.GetType());
 
-            if (LoseBar.transform.position.y != LossHeight)
+            if (loseBar.transform.position.y != LossHeight)
             {
-                LoseBar.transform.position = new(platform.transform.position.x, LossHeight, 0);
+                loseBar.transform.position = new(platform.transform.position.x, LossHeight, 0);
             }
+            placementBar.transform.position = new(platform.transform.position.x,GetHighestBlockHeight());
+        }
+
+        public float GetHighestBlockHeight()
+        {
+            float max = Block.GetHighestPoint(platform.GetComponent<Collider2D>()).y;
+            foreach (var block in placedBlocks)
+            {
+                float highPoint = Block.GetHighestPoint(block.coll).y;
+
+                if (highPoint > max)
+                {
+                    max = highPoint;
+                }
+            }
+            return max;
         }
 
         void OnFailedResolution(Block block)
@@ -85,6 +102,14 @@ namespace BuildToHeaven.GameManagement
             newCardGO.SetActive(true);
 
             hand.cards.Add(newCardObj);
+        }
+
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+
+            //Gizmos.DrawLine(new(-100, GetHighestBlockHeight()), new(100, GetHighestBlockHeight()));
         }
     }
 }

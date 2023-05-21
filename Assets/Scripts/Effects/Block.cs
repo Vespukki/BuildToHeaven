@@ -13,10 +13,12 @@ namespace BuildToHeaven.Cards
         public BlockResolution resolved {get{ return CheckResolved(); } }
 
         [HideInInspector] public Rigidbody2D body;
+        [HideInInspector] public BoxCollider2D coll;
 
         private void Awake()
         {
             body = GetComponent<Rigidbody2D>();
+            coll = GetComponent<BoxCollider2D>();
         }
 
         private void Update()
@@ -49,7 +51,32 @@ namespace BuildToHeaven.Cards
             }
             return BlockResolution.failure;
         }
+
+        public static Vector2 GetLowestPoint(SpriteRenderer spriter)
+        {
+            //return coll.ClosestPoint(new(transform.position.x, transform.position.y - 100));
+            return spriter.bounds.min;
+        }
+
+        public static Vector2 GetHighestPoint(SpriteRenderer spriter)
+        {
+            //return coll.ClosestPoint(new(transform.position.x, transform.position.y + 100));
+            return spriter.bounds.max;
+        }
+        public static Vector2 GetLowestPoint(Collider2D coll)
+        {
+            return coll.ClosestPoint(new(coll.transform.position.x, coll.transform.position.y - 100));
+        }
+
+        public static Vector2 GetHighestPoint(Collider2D coll)
+        {
+            return coll.ClosestPoint(new(coll.transform.position.x, coll.transform.position.y + 100));
+
+        }
+
     }
+
+   
 
     public enum BlockResolution
     {

@@ -31,6 +31,9 @@ namespace BuildToHeaven.Cards
         [SerializeField] Block _block;
         public Block Block => _block;
 
+        [SerializeField] bool _canPlaceAnywhere;
+        public bool CanPlaceAnywhere => _canPlaceAnywhere;
+
 
         Dictionary<Effect, Type> effectsToTypes = new();
 

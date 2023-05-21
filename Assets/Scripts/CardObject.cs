@@ -54,6 +54,17 @@ namespace BuildToHeaven.Cards
             transform.SetParent(canvas.transform);
         }
 
+        void ResetCardVisuals()
+        {
+            CardPreview.Instance.gameObject.SetActive(false);
+            GetComponent<Image>().enabled = true;
+
+            foreach (var text in GetComponentsInChildren<TextMeshProUGUI>(true))
+            {
+                text.color = new Color(text.color.r, text.color.g, text.color.b, 1);
+            }
+        }
+
         public void DragHandler(BaseEventData data)
         {
             PointerEventData pointerData = (PointerEventData)data;
@@ -69,20 +80,15 @@ namespace BuildToHeaven.Cards
                 CardPreview.Instance.GetComponent<SpriteRenderer>().sprite = card.PreviewSprite;
                 GetComponent<Image>().enabled = false;
 
-                foreach(var text in GetComponentsInChildren<TextMeshProUGUI>(true))
+                foreach (var text in GetComponentsInChildren<TextMeshProUGUI>(true))
                 {
                     text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
                 }
             }
             else
             {
-                CardPreview.Instance.gameObject.SetActive(false);
-                GetComponent<Image>().enabled = true;
-
-                foreach(var text in GetComponentsInChildren<TextMeshProUGUI>(true))
-                {
-                    text.color =new Color(text.color.r, text.color.g, text.color.b, 1);
-                }
+                ResetCardVisuals();
+                
             }
 
             
@@ -110,21 +116,35 @@ namespace BuildToHeaven.Cards
         public void DragEndHander(BaseEventData data)
         {
             CardPreview.Instance.gameObject.SetActive(false);
+            Vector2 position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-            if (!HoveringHand((PointerEventData)data)) //card played;
+
+            if ((!HoveringHand((PointerEventData)data))) //card played;
             {
-                Vector2 position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                OnCardUsed?.Invoke(card);
-                GameManager.instance.hand.cards.Remove(this);
-                card.Use(position);
-                Destroy(gameObject);
-
+                if(card.CanPlaceAnywhere || (GameManager.instance.GetHighestBlockHeight() < Block.GetLowestPoint(CardPreview.Instance.spriter).y))
+                {
+                    OnCardUsed?.Invoke(card);
+                    GameManager.instance.hand.cards.Remove(this);
+                    card.Use(position);
+                    Destroy(gameObject);
+                }
             }
             else
             {
                 //resets position in hand
+                ResetCardVisuals();
                 transform.SetParent(canvas.transform);
                 transform.SetParent(group.transform);
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+
+            if(CardPreview.Instance != null)
+            {
+                Gizmos.DrawLine(new(-100f, Block.GetLowestPoint(CardPreview.Instance.spriter).y), new(100f, Block.GetLowestPoint(CardPreview.Instance.spriter).y));
             }
         }
     }
