@@ -8,7 +8,8 @@ namespace BuildToHeaven.GameManagement
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] Camera cam;
+        //[SerializeField] Camera cam;
+        public Transform cameraTarget;
         [SerializeField] float offset;
         [HideInInspector] public float currentHeight;
 
@@ -17,10 +18,10 @@ namespace BuildToHeaven.GameManagement
             currentHeight = GameManager.instance.platform.transform.position.y;
         }
 
-        private void Update()
+        public void MoveCamera()
         {
             currentHeight = FindCamHeight(GameManager.instance.placedBlocks);
-            cam.transform.position = new(cam.transform.position.x,currentHeight + offset, -10);
+            cameraTarget.transform.position = new(cameraTarget.transform.position.x, currentHeight + offset, -10);
         }
 
         public float FindCamHeight(List<Block> blocks)

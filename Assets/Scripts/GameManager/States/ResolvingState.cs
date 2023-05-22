@@ -36,6 +36,7 @@ namespace BuildToHeaven.GameManagement
             base.Cycle();
             await WaitForCardResolution();
             //await WaitForBlocksToSettle();
+            manager.MoveBars();
             manager.ChangeState(new PlayingState(manager));
         }
 

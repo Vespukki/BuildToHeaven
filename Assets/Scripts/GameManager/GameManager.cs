@@ -47,16 +47,21 @@ namespace BuildToHeaven.GameManagement
             ChangeState(new PlayingState(this));
         }
 
-        protected override void Update()
+        private void Start()
         {
-            base.Update();
-            Debug.Log(currentState.GetType());
+            MoveBars();
+        }
+
+        public void MoveBars()
+        {
+            cam.MoveCamera();
+
 
             if (loseBar.transform.position.y != LossHeight)
             {
                 loseBar.transform.position = new(platform.transform.position.x, LossHeight, 0);
             }
-            placementBar.transform.position = new(platform.transform.position.x,GetHighestBlockHeight());
+            placementBar.transform.position = new(platform.transform.position.x, GetHighestBlockHeight());
         }
 
         public float GetHighestBlockHeight()

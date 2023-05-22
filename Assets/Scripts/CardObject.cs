@@ -118,16 +118,14 @@ namespace BuildToHeaven.Cards
             CardPreview.Instance.gameObject.SetActive(false);
             Vector2 position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
+            bool canPlace = (card.CanPlaceAnywhere || (GameManager.instance.GetHighestBlockHeight() < Block.GetLowestPoint(CardPreview.Instance.spriter).y));
 
-            if ((!HoveringHand((PointerEventData)data))) //card played;
+            if (!HoveringHand((PointerEventData)data) && canPlace) //card played;
             {
-                if(card.CanPlaceAnywhere || (GameManager.instance.GetHighestBlockHeight() < Block.GetLowestPoint(CardPreview.Instance.spriter).y))
-                {
-                    OnCardUsed?.Invoke(card);
-                    GameManager.instance.hand.cards.Remove(this);
-                    card.Use(position);
-                    Destroy(gameObject);
-                }
+                OnCardUsed?.Invoke(card);
+                GameManager.instance.hand.cards.Remove(this);
+                card.Use(position);
+                Destroy(gameObject);
             }
             else
             {
