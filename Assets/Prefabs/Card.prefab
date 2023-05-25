@@ -229,7 +229,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 11400000, guid: 7554ac1bebe7b54448ab222779103ac6, type: 2}
+  canvas: {fileID: 0}
   cardName: {fileID: 4423816376358482499}
+  group: {fileID: 0}
 --- !u!114 &4423816376358522439
 MonoBehaviour:
   m_ObjectHideFlags: 0

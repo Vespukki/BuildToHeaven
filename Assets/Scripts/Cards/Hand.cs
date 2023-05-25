@@ -5,10 +5,11 @@ using BuildToHeaven.Cards;
 
 namespace BuildToHeaven.Cards
 {
-    public class Hand : MonoBehaviour
+    public class Hand : MonoBehaviour, IPlaceable
     {
         public Canvas canvas;
         public List<CardObject> cards;
+        public Transform cardHolder;
 
         private void Awake()
         {
@@ -18,6 +19,12 @@ namespace BuildToHeaven.Cards
             }
         }
 
-      
+        public void Place(CardObject card)
+        {
+            card.ResetCardVisuals();
+            card.transform.SetParent(card.canvas.transform);
+            card.transform.SetParent(card.group.transform);
+        }
+
     }
 }

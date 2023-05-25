@@ -99,7 +99,7 @@ namespace BuildToHeaven.GameManagement
                 return;
             }
             cardObject.gameObject.SetActive(false);
-            GameObject newCardGO = Instantiate(cardObject.gameObject, hand.transform);
+            GameObject newCardGO = Instantiate(cardObject.gameObject, hand.cardHolder.transform);
             cardObject.gameObject.SetActive(true);
 
 

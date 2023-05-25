@@ -474,7 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b0dafe4e7b8d0a42b48a7eccd7a8556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: {fileID: 1376684138}
+  hand: {fileID: 812718242}
   deck: {fileID: 1267156428}
   cam: {fileID: 214253626}
   cardObject: {fileID: 4423816376358522440, guid: d14ea13084631004aa18ecd691a7e211, type: 3}
@@ -982,8 +982,9 @@ GameObject:
   - component: {fileID: 812718241}
   - component: {fileID: 812718240}
   - component: {fileID: 812718238}
+  - component: {fileID: 812718242}
   m_Layer: 5
-  m_Name: Hand panel
+  m_Name: Hand
   m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1078,6 +1079,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812718236}
   m_CullTransparentMesh: 1
+--- !u!114 &812718242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812718236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5106a197b618d4c4ea5d4d736cffe9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1178027690}
+  cards: []
+  cardHolder: {fileID: 1376684133}
 --- !u!114 &1057437084 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4423816376358482499, guid: d14ea13084631004aa18ecd691a7e211, type: 3}
@@ -1394,10 +1410,9 @@ GameObject:
   - component: {fileID: 1376684136}
   - component: {fileID: 1376684135}
   - component: {fileID: 1376684137}
-  - component: {fileID: 1376684138}
   - component: {fileID: 1376684139}
   m_Layer: 5
-  m_Name: Hand
+  m_Name: Card Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1477,20 +1492,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 1
   m_VerticalFit: 1
---- !u!114 &1376684138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1376684132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5106a197b618d4c4ea5d4d736cffe9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 1178027690}
-  cards: []
 --- !u!114 &1376684139
 MonoBehaviour:
   m_ObjectHideFlags: 0

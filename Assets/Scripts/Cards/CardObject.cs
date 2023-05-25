@@ -13,14 +13,14 @@ namespace BuildToHeaven.Cards
     public class CardObject : MonoBehaviour
     {
         public Card card;
-        private Canvas canvas;
+        [HideInInspector] public Canvas canvas;
         private Image image;
         [SerializeField] private TextMeshProUGUI cardName;
 
         public delegate void CardDelegate(Card card);
         public static event CardDelegate OnCardUsed;
 
-        VerticalLayoutGroup group;
+        [HideInInspector] public VerticalLayoutGroup group;
 
         Vector2 dragOffset;
 
@@ -55,7 +55,7 @@ namespace BuildToHeaven.Cards
             transform.SetParent(canvas.transform);
         }
 
-        void ResetCardVisuals()
+        public void ResetCardVisuals()
         {
             CardPreview.Instance.gameObject.SetActive(false);
             GetComponent<Image>().enabled = true;
@@ -114,6 +114,22 @@ namespace BuildToHeaven.Cards
             return onHand;
         }
 
+        private IPlaceable GetHoveredPlaceable(PointerEventData pointerData)
+        {
+            List<RaycastResult> hits = new();
+            EventSystem.current.RaycastAll(pointerData, hits);
+
+            foreach(RaycastResult hit in hits)
+            {
+                if(hit.gameObject.TryGetComponent(out IPlaceable iPlaceable))
+                {
+                    return iPlaceable;
+                }
+            }
+
+            return null;
+        }
+
         public void DragEndHander(BaseEventData data)
         {
             CardPreview.Instance.gameObject.SetActive(false);
@@ -121,6 +137,20 @@ namespace BuildToHeaven.Cards
 
             bool canPlace = (card.CanPlaceAnywhere || (GameManager.instance.GetHighestBlockHeight() < Block.GetLowestPoint(CardPreview.Instance.spriter).y));
 
+            IPlaceable placeable = GetHoveredPlaceable((PointerEventData)data);
+            if(placeable == null) //play the card
+            {
+                OnCardUsed?.Invoke(card);
+                GameManager.instance.hand.cards.Remove(this);
+                card.Use(position);
+                Destroy(gameObject);
+            }
+            else
+            {
+                placeable.Place(this);
+            }
+
+/*
             if (!HoveringHand((PointerEventData)data) && canPlace) //card played;
             {
                 OnCardUsed?.Invoke(card);
@@ -134,10 +164,10 @@ namespace BuildToHeaven.Cards
                 ResetCardVisuals();
                 transform.SetParent(canvas.transform);
                 transform.SetParent(group.transform);
-            }
+            }*/
         }
 
-        private void OnDrawGizmos()
+       /* private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
 
@@ -145,6 +175,6 @@ namespace BuildToHeaven.Cards
             {
                 Gizmos.DrawLine(new(-100f, Block.GetLowestPoint(CardPreview.Instance.spriter).y), new(100f, Block.GetLowestPoint(CardPreview.Instance.spriter).y));
             }
-        }
+        }*/
     }
 }
