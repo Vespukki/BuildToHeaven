@@ -1,7 +1,7 @@
 using BuildToHeaven.GameManagement;
 using UnityEngine;
 
-namespace BuildToHeaven.Cards
+namespace BuildToHeaven.Effects
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(BoxCollider2D))]

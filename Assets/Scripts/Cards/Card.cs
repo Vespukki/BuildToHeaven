@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using System.Linq;
 using System;
 using System.Threading.Tasks;
+using BuildToHeaven.Effects;
 
 namespace BuildToHeaven.Cards
 {
@@ -33,6 +34,8 @@ namespace BuildToHeaven.Cards
 
         [SerializeField] bool _canPlaceAnywhere;
         public bool CanPlaceAnywhere => _canPlaceAnywhere;
+        [SerializeField] EffectMenu _menu;
+        public EffectMenu Menu => _menu;
 
 
         Dictionary<Effect, Type> effectsToTypes = new();

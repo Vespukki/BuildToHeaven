@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using BuildToHeaven.GameManagement;
 using System.Threading.Tasks;
+using BuildToHeaven.Effects;
+using BuildToHeaven.Cards;
 
-namespace BuildToHeaven.Cards
+namespace BuildToHeaven.Effects
 {
     public abstract class CardEffect
     {
