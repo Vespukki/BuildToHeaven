@@ -21,17 +21,6 @@ namespace BuildToHeaven.Effects
             coll = GetComponent<BoxCollider2D>();
         }
 
-        private void Update()
-        {
-         /*   if(body.IsAwake() && transform.position.y > GameManager.instance.LossHeight)
-            {
-                if (CheckResolved() == BlockResolution.failure)
-                {
-                    OnFailedResolution?.Invoke(this);
-                }
-            }*/
-        }
-
         public void InvokeFailure()
         {
             OnFailedResolution?.Invoke(this);
@@ -54,13 +43,11 @@ namespace BuildToHeaven.Effects
 
         public static Vector2 GetLowestPoint(SpriteRenderer spriter)
         {
-            //return coll.ClosestPoint(new(transform.position.x, transform.position.y - 100));
             return spriter.bounds.min;
         }
 
         public static Vector2 GetHighestPoint(SpriteRenderer spriter)
         {
-            //return coll.ClosestPoint(new(transform.position.x, transform.position.y + 100));
             return spriter.bounds.max;
         }
         public static Vector2 GetLowestPoint(Collider2D coll)
@@ -75,8 +62,6 @@ namespace BuildToHeaven.Effects
         }
 
     }
-
-   
 
     public enum BlockResolution
     {

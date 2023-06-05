@@ -6,11 +6,14 @@ using BuildToHeaven.States;
 using System.Linq;
 using System;
 using BuildToHeaven.Effects;
+using BuildToHeaven.GameManagement.States;
 
 namespace BuildToHeaven.GameManagement
 {
-    public class GameManager : StateMachine
+    public class GameManager : MonoBehaviour
     {
+        public StateMachine<GameState> stateMachine = new();
+
         public static GameManager instance;
         public Hand hand;
         public Deck deck;
@@ -25,6 +28,7 @@ namespace BuildToHeaven.GameManagement
         public LoseBar loseBar;
         public Transform placementBar;
         public float lossOffset;
+        public Canvas canvas;
 
         public float LossHeight { get { return cam.currentHeight + lossOffset; } }
 
@@ -37,7 +41,6 @@ namespace BuildToHeaven.GameManagement
             Block.OnFailedResolution -= OnFailedResolution;
         }
 
-
         private void Awake()
         {
             if(instance != null)
@@ -45,7 +48,17 @@ namespace BuildToHeaven.GameManagement
                 Destroy(this);
             }
             instance = this;
-            ChangeState(new PlayingState(this));
+            stateMachine.ChangeState(new PlayingState(this));
+        }
+
+        private void FixedUpdate()
+        {
+            stateMachine.currentState.FixedUpdate();
+        }
+
+        private void Update()
+        {
+            stateMachine.currentState.Update();
         }
 
         private void Start()
@@ -108,14 +121,6 @@ namespace BuildToHeaven.GameManagement
             newCardGO.SetActive(true);
 
             hand.cards.Add(newCardObj);
-        }
-
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-
-            //Gizmos.DrawLine(new(-100, GetHighestBlockHeight()), new(100, GetHighestBlockHeight()));
         }
     }
 }

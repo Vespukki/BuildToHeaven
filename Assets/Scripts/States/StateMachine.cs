@@ -4,30 +4,18 @@ using UnityEngine;
 
 namespace BuildToHeaven.States
 {
-    public class StateMachine : MonoBehaviour
+    public class StateMachine<T> where T : State
     {
-        public State currentState;
-        public State previousState;
+        public T currentState;
+        public T previousState;
 
-        public void ChangeState(State newState)
+        public void ChangeState(T newState)
         {
 
             currentState?.Exit();
             previousState = currentState;
             currentState = newState;
             newState?.Enter();
-        }
-
-        protected virtual void FixedUpdate()
-        {
-            currentState.FixedUpdate();
-
-        }
-
-        protected virtual void Update()
-        {
-            currentState.Update();
-
         }
     }
 }

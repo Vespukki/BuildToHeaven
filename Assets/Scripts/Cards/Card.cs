@@ -33,7 +33,7 @@ namespace BuildToHeaven.Cards
         public Block Block => _block;
 
         [SerializeField] bool _canPlaceAnywhere;
-        public bool CanPlaceAnywhere => _canPlaceAnywhere;
+        public bool CanPlayAnywhere => _canPlaceAnywhere;
         [SerializeField] EffectMenu _menu;
         public EffectMenu Menu => _menu;
 
@@ -84,7 +84,7 @@ namespace BuildToHeaven.Cards
 
     public enum Effect
     {
-        Draw, Place
+        Draw, Place, OpenMenu
     }
 
 

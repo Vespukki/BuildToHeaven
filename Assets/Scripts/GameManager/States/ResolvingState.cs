@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using BuildToHeaven.Effects;
 
-namespace BuildToHeaven.GameManagement
+namespace BuildToHeaven.GameManagement.States
 {
     public class ResolvingState : GameState
     {
@@ -15,6 +15,7 @@ namespace BuildToHeaven.GameManagement
 
         public ResolvingState(GameManager _sm, Card card) : base(_sm)
         {
+            canPlayCards = false;
             cardPlayed = card;
         }
 
@@ -38,7 +39,7 @@ namespace BuildToHeaven.GameManagement
             await WaitForCardResolution();
             //await WaitForBlocksToSettle();
             manager.MoveBars();
-            manager.ChangeState(new PlayingState(manager));
+            manager.stateMachine.ChangeState(new PlayingState(manager));
         }
 
         private async Task WaitForBlocksToSettle()

@@ -59,4 +59,24 @@ namespace BuildToHeaven.Effects
         }
     }
 
+    public class OpenMenu : CardEffect
+    {
+        public override Effect effect => Effect.OpenMenu;
+
+        public override async Task Activate(Vector2 position, Card card)
+        {
+            Debug.Log("menu attempted to spawn");
+            EffectMenu menu = Object.Instantiate(card.Menu, GameManager.instance.canvas.transform).GetComponent<EffectMenu>();
+            await WaitForMenuResolution(menu);
+        }
+
+        public async Task WaitForMenuResolution(EffectMenu menu)
+        {
+            while (menu != null)
+            {
+                await Task.Yield();
+            }
+        }
+    }
+
 }

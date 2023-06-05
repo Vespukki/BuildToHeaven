@@ -4,8 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.EventSystems;
 
-namespace BuildToHeaven.GameManagement
+namespace BuildToHeaven.GameManagement.States
 {
     public class PlayingState : GameState
     {
@@ -35,7 +36,7 @@ namespace BuildToHeaven.GameManagement
         {
             await WaitForCardPlayed(); //past here cardPlayed is populated
             Debug.Log("card played");
-            manager.ChangeState(new ResolvingState(manager, cardPlayed));
+            manager.stateMachine.ChangeState(new ResolvingState(manager, cardPlayed));
         }
 
         async private Task WaitForCardPlayed()

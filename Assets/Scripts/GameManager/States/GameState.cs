@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BuildToHeaven.States;
+using BuildToHeaven.Cards;
+using UnityEngine.EventSystems;
 
-namespace BuildToHeaven.GameManagement
+namespace BuildToHeaven.GameManagement.States
 {
-    public class GameState : State
+    public abstract class GameState : State
     {
         protected GameManager manager;
-
-        public GameState(GameManager _sm) : base(_sm)
+        public bool canPlayCards = true;
+        public GameState(GameManager manager)
         {
-            manager = _sm;
+            this.manager = manager;
         }
 
         public override void Enter()

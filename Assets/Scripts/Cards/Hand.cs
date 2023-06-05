@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BuildToHeaven.Cards;
+using UnityEngine.UI;
 
 namespace BuildToHeaven.Cards
 {
@@ -10,6 +11,9 @@ namespace BuildToHeaven.Cards
         public Canvas canvas;
         public List<CardObject> cards;
         public Transform cardHolder;
+        [SerializeField] private VerticalLayoutGroup group;
+
+        [HideInInspector] public bool ShowPreview => false;
 
         private void Awake()
         {
@@ -21,9 +25,9 @@ namespace BuildToHeaven.Cards
 
         public void Place(CardObject card)
         {
-            card.ResetCardVisuals();
-            card.transform.SetParent(card.canvas.transform);
-            card.transform.SetParent(card.group.transform);
+            card.ShowCard();
+            card.transform.SetParent(canvas.transform);
+            card.transform.SetParent(group.transform);
         }
 
     }

@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using BuildToHeaven.Effects;
+using BuildToHeaven.GameManagement.States;
 
 namespace BuildToHeaven.Cards
 {
@@ -24,6 +25,7 @@ namespace BuildToHeaven.Cards
 
         Vector2 dragOffset;
 
+        private bool CanPlayCards { get { return GameManager.instance.stateMachine.currentState.canPlayCards; } }
 
        
         private void Awake()
@@ -39,23 +41,19 @@ namespace BuildToHeaven.Cards
             cardName.SetText(card.name);
         }
 
-        private void Update()
+        public void StartDragging(PointerEventData data)
         {
-            image.raycastTarget = (GameManager.instance.currentState is PlayingState);
+            group = GetComponentInParent<VerticalLayoutGroup>();
+            dragOffset = data.position - (Vector2)transform.position;
+            transform.SetParent(canvas.transform);
         }
 
         public void DragStartHandler(BaseEventData data)
         {
-            group = GetComponentInParent<VerticalLayoutGroup>();
-
-            PointerEventData pointerData = (PointerEventData)data;
-             
-            dragOffset = pointerData.position - (Vector2)transform.position;
-
-            transform.SetParent(canvas.transform);
+            StartDragging((PointerEventData)data);
         }
 
-        public void ResetCardVisuals()
+        public void ShowCard()
         {
             CardPreview.Instance.gameObject.SetActive(false);
             GetComponent<Image>().enabled = true;
@@ -66,16 +64,19 @@ namespace BuildToHeaven.Cards
             }
         }
 
-        public void DragHandler(BaseEventData data)
+        public void Drag(PointerEventData data)
         {
-            PointerEventData pointerData = (PointerEventData)data;
-
-            RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)canvas.transform, pointerData.position, canvas.worldCamera, out Vector2 position);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)canvas.transform, data.position, canvas.worldCamera, out Vector2 position);
 
             transform.position = canvas.transform.TransformPoint(position - dragOffset);
 
+            IPlaceable placeable = GetHoveredPlaceable(data);
 
-            if (!HoveringHand(pointerData))
+            if (placeable != null && !placeable.ShowPreview)
+            {
+                ShowCard();
+            }
+            else
             {
                 CardPreview.Instance.gameObject.SetActive(true);
                 CardPreview.Instance.GetComponent<SpriteRenderer>().sprite = card.PreviewSprite;
@@ -86,32 +87,12 @@ namespace BuildToHeaven.Cards
                     text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
                 }
             }
-            else
-            {
-                ResetCardVisuals();
-                
-            }
-
-            
-
         }
 
-        bool HoveringHand(PointerEventData pointerData)
+        public void DragHandler(BaseEventData data)
         {
-            List<RaycastResult> hits = new();
-            EventSystem.current.RaycastAll(pointerData, hits);
+            Drag((PointerEventData)data);
 
-            bool onHand = false;
-
-            foreach (RaycastResult hit in hits)
-            {
-                if (hit.gameObject.CompareTag("Hand"))
-                {
-                    onHand = true;
-                }
-            }
-
-            return onHand;
         }
 
         private IPlaceable GetHoveredPlaceable(PointerEventData pointerData)
@@ -130,51 +111,43 @@ namespace BuildToHeaven.Cards
             return null;
         }
 
-        public void DragEndHander(BaseEventData data)
+        public void PlaceCard(PointerEventData data) //placing is putting it somewhere, playing is activating it
         {
             CardPreview.Instance.gameObject.SetActive(false);
             Vector2 position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-            bool canPlace = (card.CanPlaceAnywhere || (GameManager.instance.GetHighestBlockHeight() < Block.GetLowestPoint(CardPreview.Instance.spriter).y));
+            bool canPlay = (card.CanPlayAnywhere || (GameManager.instance.GetHighestBlockHeight() < Block.GetLowestPoint(CardPreview.Instance.spriter).y));
 
             IPlaceable placeable = GetHoveredPlaceable((PointerEventData)data);
-            if(placeable == null) //play the card
+            if (placeable != null) //place the card
             {
-                OnCardUsed?.Invoke(card);
-                GameManager.instance.hand.cards.Remove(this);
-                card.Use(position);
-                Destroy(gameObject);
-            }
-            else
-            {
+                Debug.Log(placeable.ToString());
                 placeable.Place(this);
+                
             }
-
-/*
-            if (!HoveringHand((PointerEventData)data) && canPlace) //card played;
+            else if(canPlay && CanPlayCards) //play the card
             {
                 OnCardUsed?.Invoke(card);
                 GameManager.instance.hand.cards.Remove(this);
                 card.Use(position);
                 Destroy(gameObject);
             }
-            else
+            else //return it to its last spot
             {
-                //resets position in hand
-                ResetCardVisuals();
-                transform.SetParent(canvas.transform);
-                transform.SetParent(group.transform);
-            }*/
+                ReturnToLastSpot();
+            }
         }
 
-       /* private void OnDrawGizmos()
+        public void ReturnToLastSpot()
         {
-            Gizmos.color = Color.yellow;
+            ShowCard();
+            transform.SetParent(canvas.transform);
+            transform.SetParent(group.transform);
+        }
 
-            if(CardPreview.Instance != null)
-            {
-                Gizmos.DrawLine(new(-100f, Block.GetLowestPoint(CardPreview.Instance.spriter).y), new(100f, Block.GetLowestPoint(CardPreview.Instance.spriter).y));
-            }
-        }*/
+        public void DragEndHander(BaseEventData data)
+        {
+            PlaceCard((PointerEventData)data);
+        }
     }
 }

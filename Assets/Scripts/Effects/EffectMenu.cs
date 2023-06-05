@@ -2,14 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BuildToHeaven.Cards;
+using System.Linq;
 
 namespace BuildToHeaven.Effects
 {
-    public class EffectMenu : MonoBehaviour
+    public abstract class EffectMenu : MonoBehaviour
     {
-        private List<CardSlot> slots;
-        private void Awake()
+        public List<CardSlot> slots = new();
+
+        protected virtual void Effect()
         {
+
+        }
+
+        protected virtual void FixedUpdate()
+        {
+            if(slots.TrueForAll(slot => slot.held != null))
+            {
+                Effect();
+                Destroy(gameObject);
+            }
         }
     }
 }
