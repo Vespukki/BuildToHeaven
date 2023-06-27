@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BuildToHeaven.Effects.EffectMenus
 {
-    public class Discard1 : EffectMenu
+    public class DiscardX : EffectMenu
     {
         protected override void Effect()
         {

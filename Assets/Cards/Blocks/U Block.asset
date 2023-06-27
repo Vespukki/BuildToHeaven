@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1419507e07dc145898354e792ca6e9, type: 3}
+  m_Name: U Block
+  m_EditorClassIdentifier: 
+  _effects: 0100000000000000
+  _cardName: U Block
+  _previewSprite: {fileID: -1079336407, guid: e6446f525bcf9f744be381cb956ca246, type: 3}
+  _block: {fileID: 3966044915224495717, guid: eb63d8adae4782445bba4dd4308aac71, type: 3}
+  _canPlaceAnywhere: 0
+  _menu: {fileID: 0}

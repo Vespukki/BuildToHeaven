@@ -38,7 +38,7 @@ namespace BuildToHeaven.Cards
         {
             this.card = card;
             canvas = hand.canvas;
-            cardName.SetText(card.name);
+            cardName.SetText(card.CardName);
         }
 
         public void StartDragging(PointerEventData data)
